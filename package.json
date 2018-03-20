@@ -5,6 +5,7 @@
   "repository": "https://github.com/Adam1867/tech-test.git",
   "author": "Adam Stringfellow <adam.stringfellow@gmail.com>",
   "license": "MIT",
+  "main": "server/server.js",
   "scripts": {
     "dev": "nodemon server/server.js",
     "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha server/**/*.test.js",
@@ -13,6 +14,7 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "express-validator": "^5.0.3",
     "lodash": "^4.17.5"
   },
   "devDependencies": {

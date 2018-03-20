@@ -17,9 +17,7 @@ app.use(bodyParser.json());
 app.use('/api/people', peopleRoutes);
 
 // start listening for requests
-app.listen(port, () => {
-  console.log(`SkyBet API listening on port ${port}!`);
-});
+app.listen(port, () => {});
 
 // export app (so we can test)
 module.exports = app;
