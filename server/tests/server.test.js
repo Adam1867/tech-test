@@ -40,3 +40,32 @@ describe('GET /api/people/:id', () => {
       .end(done);
   });
 });
+
+describe('PATCH /api/people/:id', () => {
+  it('should update a person', (done) => {
+    const updatedPerson = {
+      firstname: 'Kirsty',
+      surname: 'Gallacher'
+    };
+    request(app)
+      .patch(`/api/people/${people[2].id}`)
+      .send(updatedPerson)
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.updated.firstname).toBe(updatedPerson.firstname);
+        expect(res.body.updated.surname).toBe(updatedPerson.surname);
+      })
+      .end(done);
+  });
+  it('should not update a person if invalid ID is supplied', (done) => {
+    const updatedPerson = {
+      firstname: 'Kirsty',
+      surname: 'Gallacher'
+    };
+    request(app)
+      .patch('/api/people/99')
+      .send(updatedPerson)
+      .expect(400)
+      .end(done);
+  });
+});
