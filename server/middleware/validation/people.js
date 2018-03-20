@@ -2,6 +2,12 @@ const { check } = require('express-validator/check');
 const { sanitize } = require('express-validator/filter');
 
 const peopleValidation = {
+  create: [
+    check(['firstname', 'surname'])
+      .exists()
+      .matches(/^[a-z ,.'-]+$/i)
+      .trim(),
+  ],
   read: [
     sanitize('id').toInt(),
   ],
@@ -11,6 +17,9 @@ const peopleValidation = {
       .exists().optional()
       .matches(/^[a-z ,.'-]+$/i)
       .trim(),
+  ],
+  delete: [
+    sanitize('id').toInt(),
   ],
 };
 

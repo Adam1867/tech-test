@@ -8,8 +8,7 @@
   "main": "server/server.js",
   "scripts": {
     "dev": "nodemon server/server.js",
-    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha server/**/*.test.js",
-    "test-watch": "nodemon --exec \"yarn test\""
+    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha server/**/*.test.js"
   },
   "dependencies": {
     "body-parser": "^1.18.2",

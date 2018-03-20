@@ -36,12 +36,32 @@ router.patch('/:id', validation.update, (req, res) => {
   const people = JSON.parse(fs.readFileSync(path.join(__dirname, './../', 'db/', dbFile)));
   const personIdx = people.findIndex(p => p.id === req.params.id);
   if (personIdx > -1) {
-    // const updates = _.pick(req.body, ['firstname', 'surname']);
     const updates = matchedData(req);
     people[personIdx] = { ...people[personIdx], ...updates };
     fs.writeFile(path.join(__dirname, './../', 'db/', dbFile), JSON.stringify(people), (err) => {
       if (err) throw err;
       res.send({ updated: people[personIdx] });
+    });
+  } else {
+    res.status(400).send();
+  }
+});
+
+// DELETE /:id - Remove person
+router.delete('/:id', validation.delete, (req, res) => {
+  // send validation errors if they exist
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).send({ errors: errors.mapped() });
+  }
+  // modify db file
+  const people = JSON.parse(fs.readFileSync(path.join(__dirname, './../', 'db/', dbFile)));
+  const personIdx = people.findIndex(p => p.id === req.params.id);
+  if (personIdx > -1) {
+    const deleted = people.splice(personIdx, 1);
+    fs.writeFile(path.join(__dirname, './../', 'db/', dbFile), JSON.stringify(people), (err) => {
+      if (err) throw err;
+      res.send({ deleted: deleted[0] });
     });
   } else {
     res.status(400).send();
