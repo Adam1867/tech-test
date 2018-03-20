@@ -4,6 +4,7 @@ const path = require('path');
 const { validationResult } = require('express-validator/check');
 const { matchedData } = require('express-validator/filter');
 const validation = require('./../middleware/validation/people');
+const { getNextId } = require('./../utils/people');
 
 // grab correct db file using env variable
 const dbFile = process.env.DB;
@@ -45,6 +46,27 @@ router.patch('/:id', validation.update, (req, res) => {
   } else {
     res.status(400).send();
   }
+});
+
+// POST / - Create new person
+router.post('/', validation.create, (req, res) => {
+  // send validation errors if they exist
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).send({ errors: errors.mapped() });
+  }
+  // create new person object
+  const people = JSON.parse(fs.readFileSync(path.join(__dirname, './../', 'db/', dbFile)));
+  const newPerson = {
+    id: getNextId(people),
+    ...matchedData(req),
+  };
+  people.push(newPerson);
+  // save new person to db file
+  fs.writeFile(path.join(__dirname, './../', 'db/', dbFile), JSON.stringify(people), (err) => {
+    if (err) throw err;
+    res.send({ created: newPerson });
+  });
 });
 
 // DELETE /:id - Remove person
