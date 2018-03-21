@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { toast } from 'react-toastify';
 import PeopleList from './../components/PeopleView/PeopleList';
 
 // import redux actions
-import { fetchPeople } from './../services/actions/people.actions';
+import {
+  fetchPeople,
+  updatePerson,
+  deletePerson,
+} from './../services/actions/people.actions';
 
 class PeopleView extends Component {
 
@@ -19,16 +22,17 @@ class PeopleView extends Component {
   }
 
   handleUpdatePerson = (person) => {
-    console.log('Update: ', person);
-    // toast('User updated!', {
-    //   type: 'success',
-    //   className: 'px-4',
-    // });
-    // this.handleGetPeople();
+    this.props.updatePerson(person);
   }
 
   handleDeletePerson = (id) => {
-    console.log('Delete: ', id);
+    if (window.confirm('Are you sure you want to delete this presenter?')) { // would replace with nicer modal
+      this.props.deletePerson(id);
+    }
+  }
+
+  handleCreatePerson = (person) => {
+    // this.props.createPerson(person);
   }
 
   render() {
@@ -39,13 +43,17 @@ class PeopleView extends Component {
     return (
       <div
         className="people-view-container"
-        style={this.props.loading ? loadingStyle : null}
+        style={this.props.loading && this.props.people ? loadingStyle : null}
       >
-        <PeopleList
-          people={this.props.people}
-          onSavePerson={this.handleUpdatePerson}
-          onDeletePerson={this.handleDeletePerson}
-        />
+        {this.props.loading && !this.props.people.length ? (
+          <p>LOADING...</p>
+        ) : (
+          <PeopleList
+            people={this.props.people}
+            onSavePerson={this.handleUpdatePerson}
+            onDeletePerson={this.handleDeletePerson}
+          />
+        )}
       </div>
     );
   }
@@ -58,12 +66,16 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchPeople: () => dispatch(fetchPeople()),
+  updatePerson: person => dispatch(updatePerson(person)),
+  deletePerson: id => dispatch(deletePerson(id)),
 });
 
 PeopleView.propTypes = {
   people: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
   fetchPeople: PropTypes.func.isRequired,
+  updatePerson: PropTypes.func.isRequired,
+  deletePerson: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PeopleView);
