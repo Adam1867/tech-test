@@ -9,9 +9,10 @@ yarn/npm can be used, but I prefer yarn
 
 ```
 yarn install
+cd client && yarn install
 ```
 
-To fire up the local server just run:
+To fire up the local server:
 
 ```
 yarn dev
@@ -19,6 +20,8 @@ yarn dev
 
 
 ## Testing
+
+To test the API:
 
 ```
 yarn test
@@ -37,7 +40,10 @@ I implemented redux as it is very quick to setup and forces some separation of c
 
 I also used Bootstrap and very minimal styling so I could prototype the UI quicker. Ive kept the aesthetic work to a minimum and focused more on adding a few small details to improve UX ( faded/disabled loading states, disabled buttons when invalid input, feedback notifications ).
 
+The client side app hasn't been tested unlike the server-side code as I thought this may be overkill for this challenge.
+
 
 #### A couple more notes
 * There's a 500ms timeout on the HTTP requests in the client app. This is just to show consideration for async events and simulate slower response times.
 * I decided to use a PATCH people/:id route rather than a PATCH people route to follow standard REST api practices a little better. This does go slightly against the UI in the example [markup.html](markup.html) so I hope this isn't too much of an issue.
+* I added create and delete functionality as they can provide a few little challenges that update and read functionality doesn't.
