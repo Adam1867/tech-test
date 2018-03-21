@@ -1,37 +1,43 @@
 # Sky Betting & Gaming Technical Test
 
-## Introduction
-
-Welcome to the Sky Betting & Gaming Technical Test!
-
-We hope that you find this exercise fun. There are no trick questions; we want to see your solution to a simple problem with well thought-out and well structured code.
+Old README can be found [here](__README.md).
 
 
-## The Brief
+## Installing
 
-The aim of this exercise is to create a server-side form handler in the language of your choice, to load and save data from our supplied HTML form.
+yarn/npm can be used, but I prefer yarn
 
-The main functionality required is a simple update capability against the existing records. Other CRUD functions could be added if you have time. In order to validate this functionality, you should include an appropriate level of test coverage.
+```
+yarn install
+```
 
-For a datastore, your application should just read from and write to a file on disk, rather than use a relational/noSQL solution.
+To fire up the local server just run:
 
-We leave it to you to decide how to transmit the data between the client and the server. Any client-side code should maintain the same principles as the server-side code.
+```
+yarn dev
+```
 
-You should use engineering best practices where appropriate. Principles we value include: security, performance, readability, testability, scalability, simplicity. You should also aim to achieve a clean separation of concerns between components of your solution; using the MVC pattern, for example.
 
-## The Deliverable
+## Testing
 
-* A bundled/archived repository showing your commit history or a link to an accessible private repository with your work in (Github can host private repositories at a cost; there is no charge for doing so with Bitbucket). You could fork this repo in git, but any VCS is fine. Git example for sending us a standalone bundle:
+```
+yarn test
+```
 
-        git bundle create <yourname>.bundle --all --branches
 
-* A covering note explaining the technology choices you have made.
-* Any instructions required to run your solution and tests in a Linux environment.
+## Notes
 
-## The Markup
+### Server
+I used Node for the server-side API. This has been my preferred technology recently due to its speed and simplicity. It also seems to scale well as projects grow.
 
-An example of the initial HTML form is [provided in this repository](markup.html).
+### Client
+I used React for the client app for many of the same reasons, it's fast and scales really well.
 
-## Assessment Policy
+I implemented redux as it is very quick to setup and forces some separation of concerns. Despite the small scale of this project I generally like to redux as it helps prepare for any additional complexity in the future.
 
-We consider all candidates equally, fairly and without bias.  To that end, we ask that you do not leave any personally identifying information in your submission (such as your name within an author field or file, or in use as test data).  We run all VCS-based submissions through an anonymiser before assessment, so that there is no identifying information in the commit history, but this will only remove references in the committing author and email address, not deep in the code submitted.
+I also used Bootstrap and very minimal styling so I could prototype the UI quicker. Ive kept the aesthetic work to a minimum and focused more on adding a few small details to improve UX ( faded/disabled loading states, disabled buttons when invalid input, feedback notifications ).
+
+
+#### A couple more notes
+* There's a 500ms timeout on the HTTP requests in the client app. This is just to show consideration for async events and simulate slower response times.
+* I decided to use a PATCH people/:id route rather than a PATCH people route to follow standard REST api practices a little better. This does go slightly against the UI in the example [markup.html](markup.html) so I hope this isn't too much of an issue.
