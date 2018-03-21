@@ -48,4 +48,4 @@ The client side app hasn't been tested unlike the server-side code as I thought 
 * There's a 500ms timeout on the HTTP requests in the client app. This is just to show consideration for async events and simulate slower response times.
 * I decided to use a PATCH people/:id route rather than a PATCH people route to follow standard REST api practices a little better. This does go slightly against the UI in the example [markup.html](markup.html) so I hope this isn't too much of an issue. As I understood it the markup was there to give a rough idea of the project.
 * I added create and delete functionality as they can provide a few little challenges that update and read functionality doesn't.
-* Feel free to ask me any questions as to why I did or didn't do things.
+* _Feel free to ask me any questions as to why I did or didn't do things._
