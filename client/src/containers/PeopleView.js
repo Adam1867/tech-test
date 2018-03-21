@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import PeopleList from './../components/PeopleView/PeopleList';
 
 // import redux actions
@@ -13,7 +12,6 @@ import {
 } from './../services/actions/people.actions';
 
 class PeopleView extends Component {
-
   componentDidMount = () => {
     this.handleGetPeople();
   }
@@ -27,7 +25,7 @@ class PeopleView extends Component {
   }
 
   handleDeletePerson = (id) => {
-    if (window.confirm('Are you sure you want to delete this presenter?')) { // would replace with nicer modal
+    if (window.confirm('Are you sure you want to delete this person?')) {
       this.props.deletePerson(id);
     }
   }
@@ -47,7 +45,7 @@ class PeopleView extends Component {
         style={this.props.loading && this.props.people ? loadingStyle : null}
       >
         {!this.props.initialLoad ? (
-          <p>LOADING...</p>
+          <div className="py-3 text-center">LOADING...</div>
         ) : (
           <PeopleList
             people={this.props.people}

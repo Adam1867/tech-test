@@ -27,7 +27,7 @@ export const fetchPeople = () => {
             type: PEOPLE_FETCH_SUCCESS,
             payload: res.data.people,
           });
-        }).catch((err) => {
+        }).catch(() => {
           dispatch({
             type: PEOPLE_FETCH_FAILURE,
           });
@@ -41,17 +41,15 @@ export const updatePerson = (person) => {
     dispatch({ type: PERSON_UPDATE_ATTEMPT });
     setTimeout(() => {
       axios.patch(`/api/people/${person.id}`, person)
-        .then((res) => {
+        .then(() => {
           dispatch({ type: PERSON_UPDATE_SUCCESS });
-          toast('Presenter updated!', {
+          toast('Person updated!', {
             type: 'success',
-            className: 'px-4',
           });
-        }).catch((err) => {
+        }).catch(() => {
           dispatch({ type: PERSON_UPDATE_FAILURE });
-          toast('Problem updating presenter :(', {
+          toast('Problem updating person :(', {
             type: 'error',
-            className: 'px-4',
           });
         });
     }, 500);
@@ -68,15 +66,13 @@ export const deletePerson = (id) => {
             type: PERSON_DELETE_SUCCESS,
             payload: res.data.deleted,
           });
-          toast('Presenter deleted!', {
+          toast('Person deleted!', {
             type: 'success',
-            className: 'px-4',
           });
-        }).catch((err) => {
+        }).catch(() => {
           dispatch({ type: PERSON_DELETE_FAILURE });
-          toast('Problem deleting presenter :(', {
+          toast('Problem deleting person :(', {
             type: 'error',
-            className: 'px-4',
           });
         });
     }, 500);
@@ -87,21 +83,19 @@ export const createPerson = (person) => {
   return (dispatch) => {
     dispatch({ type: PERSON_CREATE_ATTEMPT });
     setTimeout(() => {
-      axios.post(`/api/people`, person)
+      axios.post('/api/people', person)
         .then((res) => {
           dispatch({
             type: PERSON_CREATE_SUCCESS,
             payload: res.data.created,
           });
-          toast('Presenter created!', {
+          toast('Person created!', {
             type: 'success',
-            className: 'px-4',
           });
-        }).catch((err) => {
+        }).catch(() => {
           dispatch({ type: PERSON_CREATE_FAILURE });
-          toast('Problem creating presenter :(', {
+          toast('Problem creating person :(', {
             type: 'error',
-            className: 'px-4',
           });
         });
     }, 500);

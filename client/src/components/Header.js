@@ -8,7 +8,7 @@ const Header = () => (
       <Row>
         <Col lg={{ size: 12 }} >
           <img src={logo} className="header__logo" alt="logo" />
-          <h1 className="header__title">Sky Sports News Presenters</h1>
+          <h1 className="header__title">Sky Sports People</h1>
         </Col>
       </Row>
     </Container>

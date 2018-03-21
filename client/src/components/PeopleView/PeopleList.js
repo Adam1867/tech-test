@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Alert, Container, Row, Col } from 'reactstrap';
 import PersonForm from './PersonForm';
 
@@ -7,14 +8,25 @@ const PeopleList = props => (
     <Container>
       <Row>
         {!props.people.length ? (
-          <Col xs={{ size: 12 }} className="mb-3" >
+          <Col
+            xs={{ size: 12 }}
+            lg={{ size: 10, offset: 1 }}
+            xl={{ size: 8, offset: 2 }}
+            className="mb-3"
+          >
             <Alert color="warning">
-              Sorry, all presenters have been fired :(
+              Sorry, all people have been fired :(
             </Alert>
           </Col>
         ) : (
           props.people.map(person => (
-            <Col key={person.id} xs={{ size: 12 }} lg={{ size: 6 }} className="mb-3" >
+            <Col
+              key={person.id}
+              xs={{ size: 12 }}
+              lg={{ size: 10, offset: 1 }}
+              xl={{ size: 8, offset: 2 }}
+              className="mb-3"
+            >
               <PersonForm
                 person={person}
                 onSavePerson={props.onSavePerson}
@@ -23,7 +35,12 @@ const PeopleList = props => (
             </Col>
           ))
         )}
-        <Col xs={{ size: 12 }} lg={{ size: 6 }} className="mb-3" >
+        <Col
+          xs={{ size: 12 }}
+          lg={{ size: 10, offset: 1 }}
+          xl={{ size: 8, offset: 2 }}
+          className="mb-3"
+        >
           <PersonForm
             onSavePerson={props.onCreatePerson}
           />
@@ -32,5 +49,12 @@ const PeopleList = props => (
     </Container>
   </div>
 );
+
+PeopleList.propTypes = {
+  people: PropTypes.array.isRequired,
+  onSavePerson: PropTypes.func.isRequired,
+  onDeletePerson: PropTypes.func.isRequired,
+  onCreatePerson: PropTypes.func.isRequired,
+};
 
 export default PeopleList;

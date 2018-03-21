@@ -13,6 +13,7 @@ const App = () => (
       <PeopleView />
     </main>
     <ToastContainer
+      toastClassName="px-4"
       autoClose={2000}
       closeButton={false}
       hideProgressBar

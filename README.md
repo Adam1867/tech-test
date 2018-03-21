@@ -28,7 +28,7 @@ yarn test
 ## Notes
 
 ### Server
-I used Node for the server-side API. This has been my preferred technology recently due to its speed and simplicity. It also seems to scale well as projects grow.
+I used Node for the server-side API. This has been my preferred technology recently due to its speed and simplicity. It also seems to scale well as projects grow (although admittedly I haven't used it on any "big" projects).
 
 ### Client
 I used React for the client app for many of the same reasons, it's fast and scales really well.

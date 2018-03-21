@@ -1,7 +1,13 @@
+body,
+.app {
+  background-color: #EFF4FB;
+}
+
 .header {
   background-color: #153F8E;
-  padding: 30px 15px;
   color: white;
+  padding: 30px 15px;
+  text-align: center;
 }
 
 .header__logo {
