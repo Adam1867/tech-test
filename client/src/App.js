@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
+import { ToastContainer } from 'react-toastify';
+import Header from './components/Header';
+import PeopleView from './containers/PeopleView';
+
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+
+const App = () => (
+  <div className="app">
+    <Header />
+    <PeopleView />
+    <ToastContainer
+      autoClose={2000}
+      closeButton={false}
+      hideProgressBar
+    />
+  </div>
+);
 
 export default App;
