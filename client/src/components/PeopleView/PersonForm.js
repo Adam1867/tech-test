@@ -62,7 +62,7 @@ class PersonForm extends Component {
                       id="firstname"
                       name="firstname"
                       placeholder="Firstname"
-                      autoComplete={false}
+                      autoComplete="false"
                       onChange={this.handleNameChange}
                       value={this.state.person.firstname}
                       invalid={this.state.errors.firstname}
@@ -78,7 +78,7 @@ class PersonForm extends Component {
                       id="surname"
                       name="surname"
                       placeholder="Surname"
-                      autoComplete={false}
+                      autoComplete="false"
                       onChange={this.handleNameChange}
                       value={this.state.person.surname}
                       invalid={this.state.errors.surname}
