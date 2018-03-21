@@ -9,6 +9,7 @@ import {
   fetchPeople,
   updatePerson,
   deletePerson,
+  createPerson,
 } from './../services/actions/people.actions';
 
 class PeopleView extends Component {
@@ -32,7 +33,7 @@ class PeopleView extends Component {
   }
 
   handleCreatePerson = (person) => {
-    // this.props.createPerson(person);
+    this.props.createPerson(person);
   }
 
   render() {
@@ -45,13 +46,14 @@ class PeopleView extends Component {
         className="people-view-container"
         style={this.props.loading && this.props.people ? loadingStyle : null}
       >
-        {this.props.loading && !this.props.people.length ? (
+        {!this.props.initialLoad ? (
           <p>LOADING...</p>
         ) : (
           <PeopleList
             people={this.props.people}
             onSavePerson={this.handleUpdatePerson}
             onDeletePerson={this.handleDeletePerson}
+            onCreatePerson={this.handleCreatePerson}
           />
         )}
       </div>
@@ -62,20 +64,24 @@ class PeopleView extends Component {
 const mapStateToProps = state => ({
   people: state.people.people,
   loading: state.people.loading,
+  initialLoad: state.people.initiallyLoaded,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchPeople: () => dispatch(fetchPeople()),
   updatePerson: person => dispatch(updatePerson(person)),
   deletePerson: id => dispatch(deletePerson(id)),
+  createPerson: person => dispatch(createPerson(person)),
 });
 
 PeopleView.propTypes = {
   people: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
+  initialLoad: PropTypes.bool.isRequired,
   fetchPeople: PropTypes.func.isRequired,
   updatePerson: PropTypes.func.isRequired,
   deletePerson: PropTypes.func.isRequired,
+  createPerson: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PeopleView);

@@ -16,6 +16,7 @@ import {
 const initialState = {
   people: [],
   loading: false,
+  initiallyLoaded: false,
 };
 
 export default (state = initialState, action) => {
@@ -31,6 +32,7 @@ export default (state = initialState, action) => {
         ...state,
         people: action.payload,
         loading: false,
+        initiallyLoaded: true,
       };
     case PEOPLE_FETCH_FAILURE:
       return {
@@ -82,6 +84,7 @@ export default (state = initialState, action) => {
     case PERSON_CREATE_SUCCESS:
       return {
         ...state,
+        people: [...state.people, action.payload],
         loading: false,
       };
     case PERSON_CREATE_FAILURE:

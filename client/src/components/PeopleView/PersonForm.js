@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import validator from 'validator';
 import { Card, CardBody, Form, FormGroup, Label, Col, Input, FormFeedback, Button } from 'reactstrap';
 
-class Person extends Component {
+class PersonForm extends Component {
+
   constructor(props) {
     super();
     this.state = {
@@ -15,26 +16,40 @@ class Person extends Component {
       },
     };
   }
+
   handleNameChange = (e) => {
     const key = e.target.name;
     const value = e.target.value.trim();
+    const valid = validator.matches(value, /^[a-z ,.'-]+$/i);
     this.setState(prev => ({
       person: { ...prev.person, [key]: value },
       edited: true,
-    }));
-    const valid = validator.matches(value, /^[a-z ,.'-]+$/i);
-    this.setState(prev => ({
       errors: { ...prev.errors, [key]: !valid },
     }));
   }
+
   handleSave = (e) => {
     e.preventDefault();
-    this.props.onSavePerson(this.state.person);
+    const { person } = this.state;
+    this.props.onSavePerson(person);
+    if (!person.id) this.clearNames(); // clear names if form was to create new user
   }
+
   handleDelete = (e) => {
     e.preventDefault();
     this.props.onDeletePerson(this.props.person.id);
   }
+
+  clearNames = () => {
+    this.setState(prev => ({
+      person: {
+        ...prev.person,
+        firstname: '',
+        surname: '',
+      },
+    }));
+  }
+
   render() {
     return (
       <div className="person">
@@ -76,19 +91,25 @@ class Person extends Component {
                   size="sm"
                   outline
                   onClick={this.handleSave}
-                  disabled={this.state.errors.firstname || this.state.errors.surname}
+                  disabled={
+                    !this.state.edited ||
+                    (this.state.errors.firstname || this.state.errors.surname) ||
+                    (!this.state.person.firstname || !this.state.person.surname)
+                  }
                 >
-                  Save
+                  {this.props.person.id ? 'Save Changes' : 'Create'}
                 </Button>
                 {' '}
-                <Button
-                  color="danger"
-                  size="sm"
-                  outline
-                  onClick={this.handleDelete}
-                >
-                  Delete
-                </Button>
+                {this.props.person.id && // dont display delete button if creating new user
+                  <Button
+                    color="danger"
+                    size="sm"
+                    outline
+                    onClick={this.handleDelete}
+                  >
+                    Delete
+                  </Button>
+                }
               </div>
             </Form>
           </CardBody>
@@ -98,18 +119,18 @@ class Person extends Component {
   }
 }
 
-Person.propTypes = {
+PersonForm.propTypes = {
   person: PropTypes.shape({
     id: PropTypes.number,
     firstname: PropTypes.string,
     surname: PropTypes.string,
   }),
 };
-Person.defaultProps = {
+PersonForm.defaultProps = {
   person: {
     firstname: '',
     surname: '',
   },
 };
 
-export default Person;
+export default PersonForm;

@@ -9,7 +9,9 @@ import './App.css';
 const App = () => (
   <div className="app">
     <Header />
-    <PeopleView />
+    <main className="main">
+      <PeopleView />
+    </main>
     <ToastContainer
       autoClose={2000}
       closeButton={false}

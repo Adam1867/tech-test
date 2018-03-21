@@ -32,7 +32,7 @@ export const fetchPeople = () => {
             type: PEOPLE_FETCH_FAILURE,
           });
         });
-    }, 1000);
+    }, 500);
   };
 };
 
@@ -54,7 +54,7 @@ export const updatePerson = (person) => {
             className: 'px-4',
           });
         });
-    }, 1000);
+    }, 500);
   };
 };
 
@@ -79,6 +79,31 @@ export const deletePerson = (id) => {
             className: 'px-4',
           });
         });
-    }, 1000);
+    }, 500);
+  };
+};
+
+export const createPerson = (person) => {
+  return (dispatch) => {
+    dispatch({ type: PERSON_CREATE_ATTEMPT });
+    setTimeout(() => {
+      axios.post(`/api/people`, person)
+        .then((res) => {
+          dispatch({
+            type: PERSON_CREATE_SUCCESS,
+            payload: res.data.created,
+          });
+          toast('Presenter created!', {
+            type: 'success',
+            className: 'px-4',
+          });
+        }).catch((err) => {
+          dispatch({ type: PERSON_CREATE_FAILURE });
+          toast('Problem creating presenter :(', {
+            type: 'error',
+            className: 'px-4',
+          });
+        });
+    }, 500);
   };
 };
